@@ -10,7 +10,13 @@ const PORT = process.env.PORT || 3000;
 
 // middlewares
 app.use(express.json());
-app.use(express.urlencoded({extended: true})); 
+app.use(express.urlencoded({extended: true})); // For parsing form data
+
+// Creating A Custom Middleware
+app.use(function(req, res, next) {
+    console.log('Logging');
+    next();
+})
 
 
 // routes middleware
