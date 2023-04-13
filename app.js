@@ -11,7 +11,12 @@ const app = express();
 
 // middlewares
 app.use(helmet());
-app.use(morgan('tiny'))
+//setting morgan to run in development environment only
+if (app.get('env') === 'development') {
+    app.use(morgan('tiny'));
+    console.log('Morgan enabled...');
+}
+//End of morgan setting
 app.use(express.json());
 app.use(express.urlencoded({extended: true})); // For parsing form data
 app.use(log);
