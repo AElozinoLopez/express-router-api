@@ -1,26 +1,20 @@
 const express = require('express');
-
-const app = express();
-
+const log = require('./logger.js')
+const { userRouter } = require('./routes');
 require('dotenv').config();
 
-const { userRouter } = require('./routes');
 
-const PORT = process.env.PORT || 3000;
+const app = express();
 
 // middlewares
 app.use(express.json());
 app.use(express.urlencoded({extended: true})); // For parsing form data
-
-// Creating A Custom Middleware
-app.use(function(req, res, next) {
-    console.log('Logging');
-    next();
-})
-
-
+app.use(log)
 // routes middleware
 app.use('/api/v1/', userRouter);
+
+
+const PORT = process.env.PORT || 3000;
 
 
 // Home route
