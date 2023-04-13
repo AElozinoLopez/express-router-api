@@ -1,4 +1,5 @@
 const express = require('express');
+const Joi = require('joi');
 
 // create router
 const userRouter = express.Router();
@@ -26,9 +27,23 @@ userRouter.get('/users/courses/:id', (req, res) => {
 
 
 userRouter.post ('/users/courses', (req, res) => {
+    // validating input using joi
+    const schema = Joi.object({
+        name: Joi.string().min(3).required()
+    })
+
+    const result = schema.validate(req.body);
+
+    if (result.error) {
+        res.status(400).send(result.error.details[0].message);
+        return;
+    }
+
+    // Validation ends
+
     const course = {
         id: courses.length + 1,
-        name: req.body.name
+        name: result.value.name
     }
     courses.push(course);
     res.send(course);
