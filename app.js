@@ -3,11 +3,15 @@ const log = require('./midlewares/logger');
 const { userRouter } = require('./routes');
 require('dotenv').config();
 const auth = require('./midlewares/auth');
+const helmet = require('helmet');
+const morgan = require('morgan');
 
 
 const app = express();
 
 // middlewares
+app.use(helmet());
+app.use(morgan('tiny'))
 app.use(express.json());
 app.use(express.urlencoded({extended: true})); // For parsing form data
 app.use(log);
