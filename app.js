@@ -1,8 +1,8 @@
 const express = require('express');
-const log = require('./logger.js');
+const log = require('./midlewares/logger');
 const { userRouter } = require('./routes');
 require('dotenv').config();
-const auth = require('./auth.js');
+const auth = require('./midlewares/auth');
 
 
 const app = express();
