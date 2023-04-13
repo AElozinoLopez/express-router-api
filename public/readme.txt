@@ -1,0 +1,1 @@
+A random text to show how to use static middleware function

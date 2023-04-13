@@ -12,6 +12,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true})); // For parsing form data
 app.use(log);
 app.use(auth);
+app.use(express.static('public'));
 // routes middleware
 app.use('/api/v1/', userRouter);
 
