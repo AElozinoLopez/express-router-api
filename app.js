@@ -1,7 +1,8 @@
 const express = require('express');
-const log = require('./logger.js')
+const log = require('./logger.js');
 const { userRouter } = require('./routes');
 require('dotenv').config();
+const auth = require('./auth.js');
 
 
 const app = express();
@@ -9,7 +10,8 @@ const app = express();
 // middlewares
 app.use(express.json());
 app.use(express.urlencoded({extended: true})); // For parsing form data
-app.use(log)
+app.use(log);
+app.use(auth);
 // routes middleware
 app.use('/api/v1/', userRouter);
 
