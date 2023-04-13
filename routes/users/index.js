@@ -56,6 +56,33 @@ userRouter.post ('/users/courses', (req, res) => {
 
 // userRouter.get('/users/courses/:name/:year', (req, res) =>  {
 //     res.send(req.query);
-// })
+// })  
+
+userRouter.put('/users/courses/:id', (req, res) => {
+    // Look up the course
+    // If not existing, return 404 - Bad Request
+    const course = courses.find(c => c.id === parseInt(req.params.id));
+    if (!course) {
+        res.status(404).send('The course wit the given ID was not found');
+        return
+    }
+    // Validate
+    // If invalid, return 404 - Bad request
+    const schema = Joi.object ({
+        name: Joi.string().min(3).required()
+    })
+
+    const result = schema.validate(req.body);
+
+    if (result.error) {
+        res.status(400).send(result.error.details[0].message);
+        return
+    }
+
+    // Update course
+    course.name = result.value.name;
+    // Return the updated course
+    res.send(course);
+})
 
 module.exports = userRouter;
