@@ -5,6 +5,7 @@ require('dotenv').config();
 const auth = require('./midlewares/auth');
 const helmet = require('helmet');
 const morgan = require('morgan');
+const config = require('config');
 
 
 const app = express();
@@ -24,6 +25,12 @@ app.use(auth);
 app.use(express.static('public'));
 // routes middleware
 app.use('/api/v1/', userRouter);
+
+console.log('Application Name:' + config.get('name'));
+
+console.log('Mail server host:' + config.get('mail.host'));
+
+console.log('APP Password:' + config.get('db.password'));
 
 
 const PORT = process.env.PORT || 3000;
